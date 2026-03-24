@@ -9,27 +9,27 @@ pipeline {
             }
         }
 
-stage('Setup Python') {
-    steps {
-        bat 'python -m venv venv'
-        bat 'venv\\Scripts\\python -m pip install --upgrade pip'
-        bat 'venv\\Scripts\\python -m pip install -r requirements.txt'
-    }
-}
+        stage('Setup Python') {
+            steps {
+                bat 'py -m venv venv'
+                bat 'venv\\Scripts\\python -m pip install --upgrade pip'
+                bat 'venv\\Scripts\\python -m pip install -r requirements.txt'
+            }
+        }
 
         stage('Run App') {
             steps {
-                bat 'python app.py'
+                bat 'venv\\Scripts\\python app.py'
             }
         }
     }
 
     post {
         success {
-            echo 'Build Success ✅'
+            echo 'Build Success '
         }
         failure {
-            echo 'Build Failed ❌'
+            echo 'Build Failed '
         }
     }
 }
